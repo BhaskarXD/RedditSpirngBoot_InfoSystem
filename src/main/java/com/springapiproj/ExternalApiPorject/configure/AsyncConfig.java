@@ -11,7 +11,7 @@ import java.util.concurrent.Executor;
 @Configuration
 public class AsyncConfig {
 
-    @Bean(name="multithreadingbean")
+    @Bean(name="MultiThreadingBean")
     public Executor getThreadPoolExecutor() {
 
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
