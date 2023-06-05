@@ -1,4 +1,4 @@
-package codeonedigest.springbootasyncdemo.config;
+package com.springapiproj.ExternalApiPorject.configure;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
