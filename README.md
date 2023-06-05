@@ -9,5 +9,5 @@ API endpoints:
 7) Query posts by username stored in the database 
 8) Query posts by keyword sored in the database 
 9) Fetch all posts stored in the database sorted by timestamp of creation 
-10) Delete posts op a paticular user from the database
+10) Delete posts of a paticular user from the database
 11) Automatically store any posts pulished by you in the database (using multithreading in SpringBoot)
