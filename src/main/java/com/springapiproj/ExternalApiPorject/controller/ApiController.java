@@ -32,7 +32,7 @@ public class ApiController {
 
         return redditService.apiFindPostByUsername(username);
     }
-    @GetMapping("api/posts/subreddit{subreddit}")
+    @GetMapping("api/posts/subreddit/{subreddit}")
     public ResponseEntity<List<Post>> apiGetTopPostsBySubreddit(@PathVariable String subreddit){
         return redditService.apiFindTopPostsBySubreddit(subreddit);
     }

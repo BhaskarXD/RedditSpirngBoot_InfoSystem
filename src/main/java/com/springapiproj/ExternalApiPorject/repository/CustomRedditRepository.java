@@ -5,7 +5,6 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.springapiproj.ExternalApiPorject.pojo.rapidapiposts.Post;
-import com.springapiproj.ExternalApiPorject.pojo.UserPosts.Child;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.convert.MongoConverter;
@@ -26,7 +25,6 @@ public class CustomRedditRepository {
 
     public List<Post> postsByKeyword(String keyword) {
         List<Post> posts=new ArrayList<>();
-//        System.out.println("inside the customer repo");
 
         MongoDatabase database = mongoClient.getDatabase("redditDb");
         MongoCollection<Document> collection = database.getCollection("redditPosts");
@@ -38,16 +36,7 @@ public class CustomRedditRepository {
                                         new Document("$sort",
                                         new Document("numComments", -1L))));
         result.forEach(doc->posts.add(mongoConverter.read(Post.class,doc)));
-//        System.out.println("inside the customer repo");
         return posts;
     }
 
-//    public void updateUserPosts(List<Child> posts){
-//        MongoDatabase database = mongoClient.getDatabase("redditDb");
-//        MongoCollection<Document> collection = database.getCollection("myRedditPosts");
-//        AggregateIterable<Document> result=collection.
-//        result.forEach(doc->posts.add(mongoConverter.read(Post.class,doc)));
-//        System.out.println("inside the customer repo");
-//        return posts;
-//    }
 }
