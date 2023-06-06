@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 class ExternalApiPorjectApplicationTests {
-//	RedditService redditService=new RedditService();
+//	RedditApiService redditService=new RedditApiService();
 //	@Test
 //	public void testingDataFetchedOrNot(){
 //

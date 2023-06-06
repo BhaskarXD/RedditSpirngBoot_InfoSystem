@@ -4,9 +4,8 @@ import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.springapiproj.redditinfosystem.pojo.rapidapiposts.Post;
+import com.springapiproj.redditinfosystem.pojo.redditposts.PostData;
 import org.bson.Document;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.convert.MongoConverter;
 import org.springframework.stereotype.Repository;
 
@@ -16,15 +15,16 @@ import java.util.List;
 
 @Repository
 public class CustomRedditRepository {
+    private final MongoClient mongoClient;
+    private final MongoConverter mongoConverter;
 
-    @Autowired
-    private MongoClient mongoClient;
+    public CustomRedditRepository(MongoClient mongoClient, MongoConverter mongoConverter) {
+        this.mongoClient = mongoClient;
+        this.mongoConverter = mongoConverter;
+    }
 
-    @Autowired
-    private MongoConverter mongoConverter;
-
-    public List<Post> postsByKeyword(String keyword) {
-        List<Post> posts=new ArrayList<>();
+    public List<PostData> postsByKeyword(String keyword) {
+        List<PostData> posts=new ArrayList<>();
 
         MongoDatabase database = mongoClient.getDatabase("redditDb");
         MongoCollection<Document> collection = database.getCollection("redditPosts");
@@ -35,7 +35,7 @@ public class CustomRedditRepository {
                                         .append("path", "title"))),
                                         new Document("$sort",
                                         new Document("numComments", -1L))));
-        result.forEach(doc->posts.add(mongoConverter.read(Post.class,doc)));
+        result.forEach(doc->posts.add(mongoConverter.read(PostData.class,doc)));
         return posts;
     }
 

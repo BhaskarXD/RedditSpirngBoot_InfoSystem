@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -16,6 +15,7 @@ import java.util.Objects;
 public class RedditAsyncService {
     private final RestTemplate restTemplate;
     private final RedditAsyncRepository redditAsyncRepository;
+
     public RedditAsyncService(RestTemplate restTemplate, RedditAsyncRepository redditAsyncRepository) {
         this.restTemplate = restTemplate;
         this.redditAsyncRepository = redditAsyncRepository;
@@ -28,19 +28,19 @@ public class RedditAsyncService {
                 String userPostUrl="https://www.reddit.com/user/";
                 String url=userPostUrl+username+"/.json";
 //                HttpHeaders headers=new HttpHeaders();
-                ResponseEntity<Example> response=restTemplate.exchange(url, HttpMethod.GET,null,Example.class);
+                ResponseEntity<RedditJsonResponse> response=restTemplate.exchange(url, HttpMethod.GET,null, RedditJsonResponse.class);
                 List<Child> jsonData= Objects.requireNonNull(response.getBody()).getData().getChildren();
-                List<Data__1> posts=new ArrayList<>();
+                List<PostData> posts=new ArrayList<>();
                 jsonData.forEach(doc->posts.add(doc.getData()));
                 redditAsyncRepository.saveAll(posts);
-                Thread.sleep(3000);
+                Thread.sleep(5000);
             }catch (Exception e){
                 e.printStackTrace();
             }
         }
     }
 
-    public List<Data__1> getMyPosts(){
-        return redditAsyncRepository.findAllByOrderByCreatedDesc();
+    public List<PostData> getMyPosts(String author){
+        return redditAsyncRepository.findByAuthorOrderByCreatedDesc(author);
     }
 }

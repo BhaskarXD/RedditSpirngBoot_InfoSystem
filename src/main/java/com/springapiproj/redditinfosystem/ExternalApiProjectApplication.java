@@ -8,7 +8,6 @@ public class ExternalApiProjectApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ExternalApiProjectApplication.class, args);
-
 	}
 
 }

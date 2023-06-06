@@ -3,7 +3,6 @@ package com.springapiproj.redditinfosystem.pojo.redditposts;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-//import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -16,13 +15,13 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "kind",
     "data"
 })
-//@Generated("jsonschema2pojo")
+
 public class Child {
 
     @JsonProperty("kind")
     private String kind;
     @JsonProperty("data")
-    private Data__1 data;
+    private PostData data;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
@@ -37,12 +36,12 @@ public class Child {
     }
 
     @JsonProperty("data")
-    public Data__1 getData() {
+    public PostData getData() {
         return data;
     }
 
     @JsonProperty("data")
-    public void setData(Data__1 data) {
+    public void setData(PostData data) {
         this.data = data;
     }
 

@@ -1,6 +1,6 @@
 package com.springapiproj.redditinfosystem.repository;
 
-import com.springapiproj.redditinfosystem.pojo.rapidapiposts.Post;
+import com.springapiproj.redditinfosystem.pojo.redditposts.PostData;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -8,12 +8,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface RedditRepository extends MongoRepository<Post,String> {
+public interface RedditRepository extends MongoRepository<PostData,String> {
 
-    List<Post> findByAuthor(String username);
-    List<Post> findAllByOrderByCreatedAsc();
-    @Query(value="{{$search:'?0'}}")
-    List<Post> findByTitleContains(String keyword);
-
-    List<Post> deleteByAuthor(String username);
+    List<PostData> findByAuthor(String username);
+    List<PostData> findAllByOrderByCreatedAsc();
+    List<PostData> findByTitleContaining(String keyword);
+    List<PostData> deleteByAuthor(String username);
 }

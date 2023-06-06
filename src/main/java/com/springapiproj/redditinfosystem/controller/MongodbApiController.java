@@ -1,42 +1,39 @@
 package com.springapiproj.redditinfosystem.controller;
 
-import com.springapiproj.redditinfosystem.pojo.rapidapiposts.Post;
-import com.springapiproj.redditinfosystem.service.RedditService;
+import com.springapiproj.redditinfosystem.pojo.redditposts.PostData;
+import com.springapiproj.redditinfosystem.service.RedditMongodbService;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
-@RequestMapping("/spring")
+@RequestMapping("/spring/mongodb/posts")
 public class MongodbApiController {
-    private final RedditService redditService;
+    private final RedditMongodbService redditMongodbService;
 
-    public MongodbApiController(RedditService redditService) {
-        this.redditService = redditService;
+    public MongodbApiController(RedditMongodbService redditMongodbService) {
+        this.redditMongodbService = redditMongodbService;
     }
+
     //---------------------------- methods that interact with mongodb --------------------------------------------------
 
-    @GetMapping("/mongodb/posts")
-    public List<Post> getAllPosts(){
-        return redditService.mongodbFinalAllPosts();
+    @GetMapping()
+    public List<PostData> getAllPosts(){
+        return redditMongodbService.mongodbFinalAllPosts();
     }
-    @GetMapping("/mongodb/posts/keyword/{keyword}")
-    public List<Post> getPostsByKeyword(@PathVariable String keyword){
-        return redditService.mongodbFindPostsByKeyword(keyword);
+    @GetMapping("/keyword/{keyword}")
+    public List<PostData> getPostsByKeyword(@PathVariable String keyword){
+        return redditMongodbService.mongodbFindPostsByKeyword(keyword);
     }
-
-    @GetMapping("/mongodb/posts/username/{username}")
-    public List<Post> getPostsByUsername(@PathVariable String username){
-        return redditService.mongodbFindPostsByUsername(username);
+    @GetMapping("/username/{username}")
+    public List<PostData> getPostsByUsername(@PathVariable String username){
+        return redditMongodbService.mongodbFindPostsByUsername(username);
     }
-
-    @GetMapping("/mongodb/posts/sorted/timestamp")
-    public List<Post> getPostsSortedByTimestamp(){
-        return redditService.mongodbPostsSortedByTimestamp();
+    @GetMapping("/sorted/timestamp")
+    public List<PostData> getPostsSortedByTimestamp(){
+        return redditMongodbService.mongodbPostsSortedByTimestamp();
     }
-
-    @DeleteMapping("/mongodb/posts/delete/username/{username}")
-    public List<Post> deletePostsByUsername(@PathVariable String username){
-        return redditService.mongodbDeletePostsByUsername(username);
+    @DeleteMapping("/delete/username/{username}")
+    public List<PostData> deletePostsByUsername(@PathVariable String username){
+        return redditMongodbService.mongodbDeletePostsByUsername(username);
     }
 }

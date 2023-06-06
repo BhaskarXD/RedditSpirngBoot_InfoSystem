@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RedditServiceTest {
 //    @Test
-    public void testingDataFetchedOrNot(){
-        RedditService redditService=new RedditService();
-        assertTrue(redditService.mongodbFinalAllPosts().size()>0);
-    }
+//    public void testingDataFetchedOrNot(){
+//        RedditApiService redditApiService =new RedditApiService();
+//        assertTrue(redditApiService.mongodbFinalAllPosts().size()>0);
+//    }
 
 }

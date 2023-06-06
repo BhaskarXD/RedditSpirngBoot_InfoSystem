@@ -1,9 +1,8 @@
 
-package com.springapiproj.redditinfosystem.pojo.rapidapiposts; ;
+package com.springapiproj.redditinfosystem.pojo.redditposts;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-//import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -13,37 +12,37 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "id",
-    "type"
+    "kind",
+    "data"
 })
-//@Generated("jsonschema2pojo")
-public class BelongsTo {
 
-    @JsonProperty("id")
-    private String id;
-    @JsonProperty("type")
-    private String type;
+public class RedditJsonResponse {
+
+    @JsonProperty("kind")
+    private String kind;
+    @JsonProperty("data")
+    private Data data;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
 
-    @JsonProperty("id")
-    public String getId() {
-        return id;
+    @JsonProperty("kind")
+    public String getKind() {
+        return kind;
     }
 
-    @JsonProperty("id")
-    public void setId(String id) {
-        this.id = id;
+    @JsonProperty("kind")
+    public void setKind(String kind) {
+        this.kind = kind;
     }
 
-    @JsonProperty("type")
-    public String getType() {
-        return type;
+    @JsonProperty("data")
+    public Data getData() {
+        return data;
     }
 
-    @JsonProperty("type")
-    public void setType(String type) {
-        this.type = type;
+    @JsonProperty("data")
+    public void setData(Data data) {
+        this.data = data;
     }
 
     @JsonAnyGetter
