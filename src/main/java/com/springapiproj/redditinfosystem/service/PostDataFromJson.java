@@ -5,6 +5,7 @@ import com.springapiproj.redditinfosystem.pojo.redditposts.PostData;
 import com.springapiproj.redditinfosystem.pojo.redditposts.RedditJsonResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
