@@ -2,6 +2,7 @@ package com.springapiproj.redditinfosystem.service;
 
 import com.springapiproj.redditinfosystem.pojo.redditposts.*;
 import com.springapiproj.redditinfosystem.repository.RedditAsyncRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
@@ -13,6 +14,11 @@ import java.util.Objects;
 
 @Service
 public class RedditAsyncService {
+    @Value("${reddit.posts.by.username.url}")
+    private String byUsernameUrl;
+    @Value("${reddit.response.url.suffix.json}")
+    private String jsonResponseUrlSuffix;
+
     private final RestTemplate restTemplate;
     private final RedditAsyncRepository redditAsyncRepository;
 
@@ -25,9 +31,8 @@ public class RedditAsyncService {
     public void updateUserPosts(String username){
         while(true){
             try{
-                String userPostUrl="https://www.reddit.com/user/";
-                String url=userPostUrl+username+"/.json";
-//                HttpHeaders headers=new HttpHeaders();
+                String userPostUrl=byUsernameUrl;
+                String url=userPostUrl+username+jsonResponseUrlSuffix;
                 ResponseEntity<RedditJsonResponse> response=restTemplate.exchange(url, HttpMethod.GET,null, RedditJsonResponse.class);
                 List<Child> jsonData= Objects.requireNonNull(response.getBody()).getData().getChildren();
                 List<PostData> posts=new ArrayList<>();
