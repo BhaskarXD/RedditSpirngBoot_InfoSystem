@@ -3,9 +3,12 @@ package com.springapiproj.redditinfosystem.controller;
 import com.springapiproj.redditinfosystem.pojo.redditposts.PostData;
 import com.springapiproj.redditinfosystem.service.RedditApiService;
 import com.springapiproj.redditinfosystem.service.RedditMongodbService;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -28,8 +31,17 @@ public class RedditApiController {
 
     }
     @GetMapping("/posts/username/{username}")
-    public ResponseEntity<List<PostData>> apiGetPostsByUsername(@PathVariable String username){
-        return redditApiService.apiFindPostByUsername(username);
+    public List<EntityModel<PostData>> apiGetPostsByUsername(@PathVariable String username){
+        List<PostData> postData=redditApiService.apiFindPostByUsername(username).getBody();
+        assert postData != null;
+        WebMvcLinkBuilder link=WebMvcLinkBuilder.linkTo( WebMvcLinkBuilder.methodOn(this.getClass()).apiGetRisingPosts());
+        List<EntityModel<PostData>> entityModelList= new ArrayList<>();
+        for(PostData post: postData) {
+            EntityModel<PostData> entityModel = EntityModel.of(post);
+            entityModel.add(link.withRel("Reddit-Rising-Posts"));
+            entityModelList.add(entityModel);
+        }
+        return entityModelList;
     }
     @GetMapping("/posts/subreddit/{subreddit}")
     public ResponseEntity<List<PostData>> apiGetTopPostsBySubreddit(@PathVariable String subreddit){
