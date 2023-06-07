@@ -30,13 +30,16 @@ public class RedditAsyncService {
 
     @Async("MultiThreadingBean")
     public void updateUserPosts(String username){
+        String userPostUrl=byUsernameUrl;
+        String url=userPostUrl+username+jsonResponseUrlSuffix;
+        ResponseEntity<RedditJsonResponse> response;
+        List<Child> jsonData;
+        List<PostData> posts= new ArrayList<>();
         while(true){
             try{
-                String userPostUrl=byUsernameUrl;
-                String url=userPostUrl+username+jsonResponseUrlSuffix;
-                ResponseEntity<RedditJsonResponse> response=restTemplate.exchange(url, HttpMethod.GET,null, RedditJsonResponse.class);
-                List<Child> jsonData= Objects.requireNonNull(response.getBody()).getData().getChildren();
-                List<PostData> posts=new ArrayList<>();
+                response = restTemplate.exchange(url, HttpMethod.GET,null, RedditJsonResponse.class);
+                jsonData = Objects.requireNonNull(response.getBody()).getData().getChildren();
+                posts.removeAll(posts);
                 jsonData.forEach(doc->posts.add(doc.getData()));
                 redditAsyncRepository.saveAll(posts);
                 Thread.sleep(5000);
