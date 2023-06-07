@@ -1,6 +1,7 @@
 
 package com.springapiproj.redditinfosystem.pojo.redditposts;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -116,7 +117,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
     "media",
     "is_video"
 })
-//@Generated("jsonschema2pojo")
+
+@JsonFilter("SimplePostDataFilter")
 @Document("myPosts")
 public class PostData {
 
