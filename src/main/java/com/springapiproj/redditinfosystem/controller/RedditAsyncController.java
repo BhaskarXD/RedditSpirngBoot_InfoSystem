@@ -20,7 +20,7 @@ public class RedditAsyncController {
         this.redditAsyncService = redditAsyncService;
     }
 
-    //---------------- method to get up-to-date user posts save by multithreaded service -------------------------------
+    //---------------- method to get up-to-date user posts saved by multithreaded service ------------------------------
 
     @GetMapping("/my/posts")
     public List<PostData> getMyPosts(){
